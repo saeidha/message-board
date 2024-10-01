@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Web3 from 'web3';
 import MessageCard from './components/MessageCard'
+import MessageForm from './components/MessageForm'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
@@ -195,7 +196,7 @@ function App() {
     return (
       <div className="App">
           <div className="container">
-              <h1>Message Board</h1>
+              <h1>Base Public Chat</h1>
               {account ? (
                   <p>Connected as: {account}</p>
               ) : (
@@ -203,17 +204,9 @@ function App() {
               )}
               {account && (
                   <>
-                      <form onSubmit={sendMessage}>
-                          <input
-                              type="text"
-                              value={message}
-                              onChange={(e) => setMessage(e.target.value)}
-                              placeholder="Enter your message"
-                              required
-                          />
-                          <button type="submit">Send</button>
-                      </form>
+                       <MessageForm sendMessage={sendMessage} message={message} setMessage={setMessage} />
                       <div className="container">
+                        <p className="explorer">Explorer:</p>
                             <div className="row">
                                 {messages.map((msg, index) => (
                                 <div className="col-md-4 custom-spacing" key={index}>

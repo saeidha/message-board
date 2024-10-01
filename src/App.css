@@ -57,3 +57,12 @@ body {
 .custom-spacing {
   margin-bottom: 15px; /* Add 5px spacing at the bottom */
 }
+
+
+.explorer {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-weight: 600;
+  font-size: 1.8em;
+  text-align: left;
+}

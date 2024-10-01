@@ -1,4 +1,10 @@
 
+html, body {
+
+  font-family: 'Open Sans', sans-serif; /* Set Open Sans as the default font */
+  color: #fff; /* Set default text color to white */
+}
+
 /* Set the background color or image */
 body {
   background-size: cover; /* Cover the entire screen */

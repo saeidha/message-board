@@ -1,0 +1,19 @@
+.custom-card {
+    border-radius: 10px;
+    width: 100%; /* Make the card take the full width of its container */
+    background-color: #1C172D;
+  }
+  
+  .custom-card-header {
+    background-color: #283593; /* Light gray background */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-left: -33px; /* Remove margin */
+    margin-right: -33px; /* Remove margin */
+    margin-top: -33px; /* Remove margin */
+  }
+
+  /* Set all text to white within the card body */
+.card-body, .custom-card-header, .card-text {
+  color: #fff; /* Ensure all text within these elements is white */
+}

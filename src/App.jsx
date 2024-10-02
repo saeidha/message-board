@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import MessageCard from './components/MessageCard'
 import MessageForm from './components/MessageForm'
 import Nav from './components/Nav/Nav'
+import ConnectButton from './components/ConnectButton/ConnectButton'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
@@ -104,34 +105,6 @@ function App() {
         }
     };
 
-    const switchNetwork = async () => {
-        if (window.ethereum) {
-            try {
-                await window.ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: CHAIN_HEX }]
-                });
-            } catch (switchError) {
-                if (switchError.code === 4902) {
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_addEthereumChain',
-                            params: [
-                                {
-                                    chainId: CHAIN_HEX,
-                                    chainName: CHAIN_NAME,
-                                    rpcUrls: [RPC_URL]
-                                }
-                            ]
-                        });
-                    } catch (addError) {
-                        console.error(addError);
-                    }
-                }
-            }
-        }
-    };
-
     const loadBlockchainData = async () => {
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
@@ -150,19 +123,10 @@ function App() {
     };
 
 
-    const connectWallet = async () => {
-        if (window.ethereum) {
-            await window.ethereum.request({ method: 'eth_requestAccounts' });
-            const networkId = await window.web3.eth.net.getId();
-            if (networkId !== CHAIN_ID) {
-                switchNetwork();
-            }
-            const accounts = await web3.eth.getAccounts();
-            setAccount(accounts[0]);
-        } else {
-            alert('Please install MetaMask!');
-        }
-    };
+    const handleConnect = (connectedAccount) => {
+        setAccount(connectedAccount);
+      };
+    
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -188,12 +152,11 @@ function App() {
 
         <div className="App">
             <Nav />
-            <div className="container">
-                <h1>Base Public Chat</h1>
+            <div className="container-box">
                 {account ? (
                     <p>Connected as: {account}</p>
                 ) : (
-                    <button onClick={connectWallet}>Connect Wallet</button>
+                    <ConnectButton onConnect={handleConnect} chainId={CHAIN_ID} chainHex={CHAIN_HEX} chainName={CHAIN_NAME} rpcUrl={RPC_URL} />
                 )}
                 {account && (
                     <>

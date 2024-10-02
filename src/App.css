@@ -8,7 +8,7 @@ html, body {
 /* Set the background color or image */
 body {
   background-size: cover; /* Cover the entire screen */
-  background-color: #000; /* Fallback background color if image is not available */
+  background-color: #10151D; /* Fallback background color if image is not available */
 }
 
 #root {

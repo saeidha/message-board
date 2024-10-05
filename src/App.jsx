@@ -5,6 +5,7 @@ import Nav from './components/Nav/Nav'
 import ConnectButton from './components/ConnectButton/ConnectButton'
 import MessageList from './components/Message/MessageList'
 import useMessages from './components/Message/UseMessages';
+import Loader from './components/Loader';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
@@ -91,12 +92,23 @@ function App() {
     const [contract, setContract] = useState(null);
     const [message, setMessage] = useState('');
     const { messages, loadMessages } = useMessages(contract);
+    const [isLoading, setIsLoading] = useState(true); // State to track loading
 
     useEffect(() => {
         loadWeb3();
         loadContract();
-        loadMessages();
+        fetchMessages();
     }, [loadMessages]);
+
+    const fetchMessages = async () => {
+
+        if (isLoading === true) { // Check if isLoading is null
+            setIsLoading(true); // Show loader only if it hasn't been shown before
+          }
+        
+        await loadMessages();
+        setIsLoading(false); // Hide loader after messages are loaded
+      };
 
     const loadWeb3 = async () => {
         if (window.ethereum) {
@@ -143,8 +155,8 @@ function App() {
     };
 
     return (
-
         <div className="App">
+            {isLoading && <Loader />} {/* Display loader while loading */}
             <Nav />
             <div className="container-box">
                 {account ? (

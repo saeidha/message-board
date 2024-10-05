@@ -1,8 +1,8 @@
 import React from 'react';
+import ConnectButton from '../ConnectButton/ConnectButton';
 import './Nav.css'
 
-
-function Nav() {
+function Nav({ handleConnect, chainId, chainHex, chainName, rpcUrl }) {
   return (
     <header className="header">
       <nav className="nav">
@@ -16,9 +16,14 @@ function Nav() {
           <li className='nav-text'><a href="/about">About</a></li>
           <li className='nav-text'><a href="https://basescan.org/address/0x86638bed40fb4a7cd9ef1666b5d5971f4964dd19">Contract</a></li>
         </ul>
-
         <div className="button-container">
-          <button className="button">Button Text</button>
+            <ConnectButton
+              onConnect={handleConnect}
+              chainId={chainId}
+              chainHex={chainHex}
+              chainName={chainName}
+              rpcUrl={rpcUrl}
+            />
         </div>
       </nav>
     </header>

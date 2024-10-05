@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Web3 from 'web3';
 import MessageForm from './components/Message/MessageForm'
 import Nav from './components/Nav/Nav'
-import ConnectButton from './components/ConnectButton/ConnectButton'
 import MessageList from './components/Message/MessageList'
 import useMessages from './components/Message/UseMessages';
 import Loader from './components/Loader';
@@ -157,13 +156,8 @@ function App() {
     return (
         <div className="App">
             {isLoading && <Loader />} {/* Display loader while loading */}
-            <Nav />
+            <Nav handleConnect={handleConnect} chainId={CHAIN_ID} chainHex={CHAIN_HEX} chainName={CHAIN_NAME} rpcUrl={RPC_URL}/>
             <div className="container-box">
-                {account ? (
-                    <p>Connected as: {account}</p>
-                ) : (
-                    <ConnectButton onConnect={handleConnect} chainId={CHAIN_ID} chainHex={CHAIN_HEX} chainName={CHAIN_NAME} rpcUrl={RPC_URL} />
-                )}
                 {account && (
                     <>
                         <MessageForm sendMessage={sendMessage} message={message} setMessage={setMessage} />

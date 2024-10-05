@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Web3 from 'web3';
-import MessageCard from './components/MessageCard'
-import MessageForm from './components/MessageForm'
+import MessageForm from './components/Message/MessageForm'
 import Nav from './components/Nav/Nav'
 import ConnectButton from './components/ConnectButton/ConnectButton'
+import MessageList from './components/Message/MessageList'
+import useMessages from './components/Message/UseMessages';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
@@ -89,12 +90,13 @@ function App() {
     const [account, setAccount] = useState('');
     const [contract, setContract] = useState(null);
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
+    const { messages, loadMessages } = useMessages(contract);
 
     useEffect(() => {
         loadWeb3();
-        loadBlockchainData();
-    }, []);
+        loadContract();
+        loadMessages();
+    }, [loadMessages]);
 
     const loadWeb3 = async () => {
         if (window.ethereum) {
@@ -105,21 +107,13 @@ function App() {
         }
     };
 
-    const loadBlockchainData = async () => {
+    const loadContract = async () => {
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
         setAccount(accounts[0]);
 
         const contract = new web3.eth.Contract(contractABI, contractAddress);
         setContract(contract);
-
-        const rawMessages = await contract.methods.getMessages().call();
-        const messages = rawMessages.map(msg => ({
-            sender: msg.sender,
-            text: msg.text,
-            timestamp: Number(msg.timestamp)
-        }));
-        setMessages(messages);
     };
 
 
@@ -164,16 +158,7 @@ function App() {
                     </>
                 )}
             </div>
-            <div className="container">
-                <p className="explorer">Explorer:</p>
-                <div className="row">
-                    {messages.map((msg, index) => (
-                        <div className="col-md-4 custom-spacing" key={index}>
-                            <MessageCard sender={msg.sender} text={msg.text} timestamp={msg.timestamp} />
-                        </div>
-                    ))}
-                </div>
-            </div>
+            <MessageList messages={messages} loadMessages={loadMessages} />
         </div>
     );
 }

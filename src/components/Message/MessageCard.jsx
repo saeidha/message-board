@@ -9,7 +9,7 @@ const MessageCard = ({ sender, text, timestamp }) => {
   return (
     <Card className="custom-card">
       <Card.Header className="custom-card-header">
-        <p className='address-text'>Sender: {sender.slice(0, 4)}...${sender.slice(-4)}</p>
+        <p className='address-text'>Sender: {sender.slice(0, 4)}...{sender.slice(-4)}</p>
         <p className="formatted-date"> Date: {formattedDate}</p>
       </Card.Header>
       <Card.Body>

@@ -30,5 +30,5 @@
 .card-body, .custom-card-header, .card-text {
   color: #BCB7CC; /* Ensure all text within these elements is white */
   text-align: left;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }

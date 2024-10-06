@@ -12,7 +12,7 @@ const useMessages = (contract) => { // Define a custom hook
       text: msg.text,
       timestamp: Number(msg.timestamp),
     }));
-    setMessages(formattedMessages);
+    setMessages(formattedMessages.reverse());
   };
 
   return { messages, loadMessages }; // Return both messages and loadMessages function
